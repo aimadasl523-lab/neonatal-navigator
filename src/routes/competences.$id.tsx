@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import type { Competence, Protocol } from "@/data/content";
 import { competences, protocols } from "@/data/content";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/competences/$id")({
 });
 
 function CompetenceDetail() {
-  const { c, p } = Route.useLoaderData();
+  const { c, p } = Route.useLoaderData() as { c: Competence; p: Protocol };
   const total = c.criteria.reduce((a, b) => a + b.weight, 0);
   const [checked, setChecked] = useState<boolean[]>(c.criteria.map(() => false));
   const score = c.criteria.reduce((acc, crit, i) => acc + (checked[i] ? crit.weight : 0), 0);

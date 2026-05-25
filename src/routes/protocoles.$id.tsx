@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { protocols } from "@/data/content";
+import { protocols, type Protocol } from "@/data/content";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,7 +46,7 @@ const levelColors: Record<string, string> = {
 };
 
 function ProtocolDetail() {
-  const { p } = Route.useLoaderData();
+  const { p } = Route.useLoaderData() as { p: Protocol };
 
   const sections: { id: string; icon: typeof Target; title: string; items?: string[]; render?: () => React.ReactNode }[] = [
     { id: "obj", icon: Target, title: "Objectifs", items: p.objectives },
