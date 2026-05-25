@@ -26,6 +26,9 @@ import {
 } from "lucide-react";
 import { exportProtocolPDF } from "@/lib/pdf";
 import { motion } from "framer-motion";
+import { AnimatedVitals } from "@/components/animated-vitals";
+import { moduleImages } from "@/lib/module-images";
+import { modules } from "@/data/content";
 
 export const Route = createFileRoute("/protocoles/$id")({
   loader: ({ params }) => {
