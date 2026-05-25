@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { modules, protocols } from "@/data/content";
+import { modules, protocols, type Module } from "@/data/content";
 import { ChevronRight, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/modules/$moduleId")({
@@ -21,7 +21,7 @@ const levelColors: Record<string, string> = {
 };
 
 function ModuleDetail() {
-  const { mod } = Route.useLoaderData();
+  const { mod } = Route.useLoaderData() as { mod: Module };
   const list = protocols.filter((p) => p.moduleId === mod.id);
   const Icon = mod.icon;
   return (
