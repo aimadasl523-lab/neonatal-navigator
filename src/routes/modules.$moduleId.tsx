@@ -26,6 +26,7 @@ function ModuleDetail() {
   const { mod } = Route.useLoaderData() as { mod: Module };
   const list = protocols.filter((p) => p.moduleId === mod.id);
   const img = moduleImages[mod.id];
+  const Icon = mod.icon;
   return (
     <div className="mx-auto max-w-5xl space-y-8">
       <motion.div
