@@ -1,8 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { modules, protocols, type Module } from "@/data/content";
-import { ChevronRight, Clock } from "lucide-react";
+import { moduleImages } from "@/lib/module-images";
+import { ChevronRight, Clock, BookMarked } from "lucide-react";
 
 export const Route = createFileRoute("/modules/$moduleId")({
   component: ModuleDetail,
@@ -23,15 +25,48 @@ const levelColors: Record<string, string> = {
 function ModuleDetail() {
   const { mod } = Route.useLoaderData() as { mod: Module };
   const list = protocols.filter((p) => p.moduleId === mod.id);
+  const img = moduleImages[mod.id];
   const Icon = mod.icon;
   return (
-    <div className="mx-auto max-w-5xl space-y-6">
-      <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${mod.color} p-8 text-white shadow-glow`}>
-        <Icon className="absolute right-8 top-1/2 h-32 w-32 -translate-y-1/2 text-white/20" />
-        <Badge className="mb-3 bg-white/20 text-white backdrop-blur">Module</Badge>
-        <h1 className="text-3xl font-bold md:text-4xl">{mod.title}</h1>
-        <p className="mt-2 max-w-xl text-white/90">{mod.description}</p>
-      </div>
+    <div className="mx-auto max-w-5xl space-y-8">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative overflow-hidden rounded-3xl text-white shadow-glow"
+      >
+        {img && (
+          <img
+            src={img}
+            alt={mod.title}
+            width={1024}
+            height={640}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        <div className={`absolute inset-0 bg-gradient-to-br ${mod.color} mix-blend-multiply opacity-80`} />
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/70 via-transparent to-transparent" />
+        <Icon className="absolute right-8 top-1/2 h-32 w-32 -translate-y-1/2 text-white/15" />
+        <div className="relative p-8 md:p-12">
+          <Badge className="mb-3 border-white/20 bg-white/15 text-white backdrop-blur">Module · corpus standardisé</Badge>
+          <h1 className="font-serif text-4xl font-semibold tracking-tight md:text-5xl">{mod.title}</h1>
+          <p className="mt-3 max-w-2xl font-serif text-white/90 md:text-lg">{mod.description}</p>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="flex items-start gap-3 rounded-2xl border-l-4 border-primary bg-accent/40 p-5"
+      >
+        <BookMarked className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <p className="font-serif text-sm leading-relaxed text-foreground/85">
+          <span className="font-semibold not-italic">Note de l'auteure —</span> les fiches qui
+          suivent ont été revues lors d'un consensus Delphi à trois tours auprès d'un panel
+          interprofessionnel (médecins néonatologistes, IDE puéricultrices, sages-femmes). Le seuil
+          de convergence retenu est de <span className="font-mono not-italic text-xs">80&nbsp;%</span>.
+        </p>
+      </motion.div>
 
       <div className="grid gap-3">
         {list.map((p) => (
