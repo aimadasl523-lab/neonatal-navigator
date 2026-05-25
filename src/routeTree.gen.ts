@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuizIndexRouteImport } from './routes/quiz.index'
+import { Route as ProtocolesIndexRouteImport } from './routes/protocoles.index'
+import { Route as ModulesIndexRouteImport } from './routes/modules.index'
+import { Route as CompetencesIndexRouteImport } from './routes/competences.index'
+import { Route as AlgorithmesIndexRouteImport } from './routes/algorithmes.index'
+import { Route as ProtocolesIdRouteImport } from './routes/protocoles.$id'
+import { Route as ModulesModuleIdRouteImport } from './routes/modules.$moduleId'
+import { Route as CompetencesIdRouteImport } from './routes/competences.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizIndexRoute = QuizIndexRouteImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtocolesIndexRoute = ProtocolesIndexRouteImport.update({
+  id: '/protocoles/',
+  path: '/protocoles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulesIndexRoute = ModulesIndexRouteImport.update({
+  id: '/modules/',
+  path: '/modules/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompetencesIndexRoute = CompetencesIndexRouteImport.update({
+  id: '/competences/',
+  path: '/competences/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlgorithmesIndexRoute = AlgorithmesIndexRouteImport.update({
+  id: '/algorithmes/',
+  path: '/algorithmes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtocolesIdRoute = ProtocolesIdRouteImport.update({
+  id: '/protocoles/$id',
+  path: '/protocoles/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulesModuleIdRoute = ModulesModuleIdRouteImport.update({
+  id: '/modules/$moduleId',
+  path: '/modules/$moduleId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompetencesIdRoute = CompetencesIdRouteImport.update({
+  id: '/competences/$id',
+  path: '/competences/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/competences/$id': typeof CompetencesIdRoute
+  '/modules/$moduleId': typeof ModulesModuleIdRoute
+  '/protocoles/$id': typeof ProtocolesIdRoute
+  '/algorithmes/': typeof AlgorithmesIndexRoute
+  '/competences/': typeof CompetencesIndexRoute
+  '/modules/': typeof ModulesIndexRoute
+  '/protocoles/': typeof ProtocolesIndexRoute
+  '/quiz/': typeof QuizIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/competences/$id': typeof CompetencesIdRoute
+  '/modules/$moduleId': typeof ModulesModuleIdRoute
+  '/protocoles/$id': typeof ProtocolesIdRoute
+  '/algorithmes': typeof AlgorithmesIndexRoute
+  '/competences': typeof CompetencesIndexRoute
+  '/modules': typeof ModulesIndexRoute
+  '/protocoles': typeof ProtocolesIndexRoute
+  '/quiz': typeof QuizIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/competences/$id': typeof CompetencesIdRoute
+  '/modules/$moduleId': typeof ModulesModuleIdRoute
+  '/protocoles/$id': typeof ProtocolesIdRoute
+  '/algorithmes/': typeof AlgorithmesIndexRoute
+  '/competences/': typeof CompetencesIndexRoute
+  '/modules/': typeof ModulesIndexRoute
+  '/protocoles/': typeof ProtocolesIndexRoute
+  '/quiz/': typeof QuizIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/competences/$id'
+    | '/modules/$moduleId'
+    | '/protocoles/$id'
+    | '/algorithmes/'
+    | '/competences/'
+    | '/modules/'
+    | '/protocoles/'
+    | '/quiz/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/competences/$id'
+    | '/modules/$moduleId'
+    | '/protocoles/$id'
+    | '/algorithmes'
+    | '/competences'
+    | '/modules'
+    | '/protocoles'
+    | '/quiz'
+  id:
+    | '__root__'
+    | '/'
+    | '/competences/$id'
+    | '/modules/$moduleId'
+    | '/protocoles/$id'
+    | '/algorithmes/'
+    | '/competences/'
+    | '/modules/'
+    | '/protocoles/'
+    | '/quiz/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompetencesIdRoute: typeof CompetencesIdRoute
+  ModulesModuleIdRoute: typeof ModulesModuleIdRoute
+  ProtocolesIdRoute: typeof ProtocolesIdRoute
+  AlgorithmesIndexRoute: typeof AlgorithmesIndexRoute
+  CompetencesIndexRoute: typeof CompetencesIndexRoute
+  ModulesIndexRoute: typeof ModulesIndexRoute
+  ProtocolesIndexRoute: typeof ProtocolesIndexRoute
+  QuizIndexRoute: typeof QuizIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/': {
+      id: '/quiz/'
+      path: '/quiz'
+      fullPath: '/quiz/'
+      preLoaderRoute: typeof QuizIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/protocoles/': {
+      id: '/protocoles/'
+      path: '/protocoles'
+      fullPath: '/protocoles/'
+      preLoaderRoute: typeof ProtocolesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/': {
+      id: '/modules/'
+      path: '/modules'
+      fullPath: '/modules/'
+      preLoaderRoute: typeof ModulesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/competences/': {
+      id: '/competences/'
+      path: '/competences'
+      fullPath: '/competences/'
+      preLoaderRoute: typeof CompetencesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/algorithmes/': {
+      id: '/algorithmes/'
+      path: '/algorithmes'
+      fullPath: '/algorithmes/'
+      preLoaderRoute: typeof AlgorithmesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/protocoles/$id': {
+      id: '/protocoles/$id'
+      path: '/protocoles/$id'
+      fullPath: '/protocoles/$id'
+      preLoaderRoute: typeof ProtocolesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/$moduleId': {
+      id: '/modules/$moduleId'
+      path: '/modules/$moduleId'
+      fullPath: '/modules/$moduleId'
+      preLoaderRoute: typeof ModulesModuleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/competences/$id': {
+      id: '/competences/$id'
+      path: '/competences/$id'
+      fullPath: '/competences/$id'
+      preLoaderRoute: typeof CompetencesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompetencesIdRoute: CompetencesIdRoute,
+  ModulesModuleIdRoute: ModulesModuleIdRoute,
+  ProtocolesIdRoute: ProtocolesIdRoute,
+  AlgorithmesIndexRoute: AlgorithmesIndexRoute,
+  CompetencesIndexRoute: CompetencesIndexRoute,
+  ModulesIndexRoute: ModulesIndexRoute,
+  ProtocolesIndexRoute: ProtocolesIndexRoute,
+  QuizIndexRoute: QuizIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
