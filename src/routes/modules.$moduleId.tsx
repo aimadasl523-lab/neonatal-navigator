@@ -1,8 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { modules, protocols, type Module } from "@/data/content";
-import { ChevronRight, Clock } from "lucide-react";
+import { moduleImages } from "@/lib/module-images";
+import { ChevronRight, Clock, BookMarked } from "lucide-react";
 
 export const Route = createFileRoute("/modules/$moduleId")({
   component: ModuleDetail,
