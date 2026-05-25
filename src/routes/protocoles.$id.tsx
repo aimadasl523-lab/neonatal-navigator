@@ -50,6 +50,9 @@ const levelColors: Record<string, string> = {
 
 function ProtocolDetail() {
   const { p } = Route.useLoaderData() as { p: Protocol };
+  const mod = modules.find((m) => m.id === p.moduleId);
+  const img = mod ? moduleImages[mod.id] : undefined;
+
 
   const sections: { id: string; icon: typeof Target; title: string; items?: string[]; render?: () => React.ReactNode }[] = [
     { id: "obj", icon: Target, title: "Objectifs", items: p.objectives },
