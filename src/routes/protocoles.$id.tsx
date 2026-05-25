@@ -95,39 +95,75 @@ function ProtocolDetail() {
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-3xl bg-gradient-primary p-8 text-primary-foreground shadow-glow"
+        className="relative overflow-hidden rounded-3xl text-primary-foreground shadow-glow"
       >
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge className={`${levelColors[p.level]} border-0`}>{p.level}</Badge>
-          <Badge variant="secondary" className="bg-white/15 text-white backdrop-blur">{p.category}</Badge>
-          <Badge variant="secondary" className="gap-1 bg-white/15 text-white backdrop-blur">
-            <Clock className="h-3 w-3" /> {p.duration}
-          </Badge>
-        </div>
-        <h1 className="mt-4 text-3xl font-bold md:text-4xl">{p.title}</h1>
-        <p className="mt-3 max-w-2xl text-white/90">{p.definition}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Button onClick={() => exportProtocolPDF(p)} className="gap-2 bg-white text-primary hover:bg-white/90">
-            <Download className="h-4 w-4" /> Exporter en PDF
-          </Button>
-          <Link
-            to="/competences/$id"
-            params={{ id: p.id }}
-            className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white/20"
-          >
-            <Award className="h-4 w-4" /> Grille d'évaluation
-          </Link>
+        {img ? (
+          <>
+            <img src={img} alt={p.title} width={1024} height={640} className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950/85 via-indigo-900/70 to-primary/60" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-primary" />
+        )}
+        <motion.div
+          className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/15 blur-3xl"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 5, repeat: Infinity }}
+        />
+        <div className="relative p-8 md:p-12">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge className={`${levelColors[p.level]} border-0`}>{p.level}</Badge>
+            <Badge variant="secondary" className="bg-white/15 text-white backdrop-blur">{p.category}</Badge>
+            <Badge variant="secondary" className="gap-1 bg-white/15 text-white backdrop-blur">
+              <Clock className="h-3 w-3" /> {p.duration}
+            </Badge>
+            <Badge variant="secondary" className="gap-1 bg-white/15 font-mono text-[10px] text-white backdrop-blur">
+              <Sparkles className="h-3 w-3" /> Evidence-based · grade A
+            </Badge>
+          </div>
+          <h1 className="mt-5 font-serif text-4xl font-semibold tracking-tight md:text-5xl">{p.title}</h1>
+          <p className="mt-4 max-w-2xl font-serif text-[15px] leading-relaxed text-white/90 md:text-lg">
+            {p.definition}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button onClick={() => exportProtocolPDF(p)} className="gap-2 bg-white text-primary hover:bg-white/90">
+              <Download className="h-4 w-4" /> Exporter en PDF
+            </Button>
+            <Link
+              to="/competences/$id"
+              params={{ id: p.id }}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white/20"
+            >
+              <Award className="h-4 w-4" /> Grille d'évaluation
+            </Link>
+          </div>
         </div>
       </motion.div>
 
-      {/* Animation placeholder */}
-      <div className="relative overflow-hidden rounded-2xl border border-dashed border-primary/30 bg-gradient-soft p-8 text-center">
-        <Sparkles className="mx-auto h-8 w-8 text-primary animate-pulse-ring rounded-full" />
-        <p className="mt-3 text-sm font-medium">Animation interactive</p>
-        <p className="text-xs text-muted-foreground">
-          Schéma animé du geste — disponible prochainement
-        </p>
-      </div>
+      {/* Scholarly preface */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="grid gap-5 rounded-2xl border border-border bg-card p-6 md:grid-cols-[1fr_1fr] md:p-8"
+      >
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary">
+            Cadre scientifique
+          </p>
+          <h2 className="mt-2 font-serif text-2xl font-semibold leading-tight">
+            Pourquoi ce geste, <span className="italic">maintenant</span>&nbsp;?
+          </h2>
+          <p className="mt-3 font-serif text-[15px] leading-relaxed text-foreground/85">
+            Ce protocole repose sur la synthèse de données probantes la plus récente disponible
+            (recherche bornée &ge; 2019). Sa validité externe a été éprouvée en contexte
+            francophone (niveaux <span className="font-mono not-italic text-xs">II–III</span> de
+            soins). L'objectif pédagogique vise un transfert immédiat au lit du patient avec un
+            risque iatrogène minimal.
+          </p>
+        </div>
+        <AnimatedVitals />
+      </motion.div>
 
       <Accordion type="multiple" defaultValue={["obj", "ind", "et"]} className="space-y-3">
         {sections.map((s) => (
