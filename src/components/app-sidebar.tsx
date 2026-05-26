@@ -1,24 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
-  LayoutDashboard,
-  BookOpen,
-  FileSearch,
-  ClipboardCheck,
-  Brain,
-  GitBranch,
-  Sparkles,
+  LayoutDashboard, BookOpen, FileSearch, ClipboardCheck,
+  Brain, GitBranch, Sparkles, Layers, HelpCircle, Activity,
 } from "lucide-react";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
+  SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton,
+  SidebarMenuItem, useSidebar,
 } from "@/components/ui/sidebar";
 import { modules } from "@/data/content";
 
@@ -28,7 +16,10 @@ const mainItems = [
   { title: "Protocoles", url: "/protocoles", icon: FileSearch },
   { title: "Compétences", url: "/competences", icon: ClipboardCheck },
   { title: "Quiz", url: "/quiz", icon: Brain },
+  { title: "Flashcards", url: "/flashcards", icon: Layers },
+  { title: "Simulations", url: "/simulations", icon: Activity },
   { title: "Algorithmes", url: "/algorithmes", icon: GitBranch },
+  { title: "FAQ", url: "/faq", icon: HelpCircle },
 ];
 
 export function AppSidebar() {

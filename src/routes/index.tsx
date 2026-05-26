@@ -1,221 +1,286 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Activity, BookOpen, ClipboardCheck, FileSearch, Sparkles, TrendingUp, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { modules, protocols, quizzes } from "@/data/content";
-import { AuthorCard } from "@/components/author-card";
-import { AnimatedVitals } from "@/components/animated-vitals";
-import heroImg from "@/assets/hero-dashboard.jpg";
+import { useState } from "react";
+import { ArrowRight, BookOpen, Sparkles, FileSearch, Quote, Languages } from "lucide-react";
+import {
+  modules, protocols, quizzes, poles, matriceRubriques, methodologie,
+  organismes, tickerTerms, author, resumes,
+} from "@/data/content";
+import { EcgBackground } from "@/components/ecg-background";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
-  head: () => ({ meta: [{ title: "Tableau de bord — NéoFiches" }] }),
+  head: () => ({ meta: [{ title: "NéoFiches — Manuel de Fiches Techniques Standardisées · Néonatologie & Pédiatrie" }] }),
 });
 
-function Dashboard() {
-  const stats = [
-    { label: "Modules", value: modules.length, icon: BookOpen, color: "from-sky-500 to-cyan-500" },
-    { label: "Protocoles", value: protocols.length, icon: FileSearch, color: "from-violet-500 to-purple-500" },
-    { label: "Quiz disponibles", value: quizzes.length, icon: Activity, color: "from-emerald-500 to-teal-500" },
-    { label: "Grilles de compétences", value: protocols.length, icon: ClipboardCheck, color: "from-rose-500 to-pink-500" },
-  ];
+type Lang = "fr" | "en" | "ar";
 
-  const progress = [
-    { module: "Néonatologie", done: 2, total: 3 },
-    { module: "Soins respiratoires", done: 1, total: 2 },
-    { module: "Hygiène & sécurité", done: 2, total: 2 },
-    { module: "Examen clinique", done: 0, total: 1 },
+function Dashboard() {
+  const [lang, setLang] = useState<Lang>("fr");
+  const resume = resumes[lang];
+  const stats = [
+    { v: "20", l: "Fiches Techniques" },
+    { v: "5", l: "Pôles Cliniques" },
+    { v: "14", l: "Rubriques par Fiche" },
+    { v: "150+", l: "Références Scientifiques" },
   ];
 
   return (
-    <div className="mx-auto max-w-7xl space-y-10">
-      {/* Hero with image */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-3xl shadow-glow"
-      >
-        <img
-          src={heroImg}
-          alt="Représentation neuronale du soin néonatal"
-          width={1600}
-          height={800}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-indigo-900/70 to-cyan-700/40" />
-        <motion.div
-          className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-cyan-400/30 blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-        <div className="relative z-10 max-w-2xl p-8 text-white md:p-14">
-          <Badge variant="secondary" className="mb-4 gap-1.5 border-white/20 bg-white/10 text-white backdrop-blur">
-            <Sparkles className="h-3 w-3" /> Édition 2026 · révisée par comité scientifique
-          </Badge>
-          <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
-            La fiche technique
-            <span className="block italic text-cyan-200">repensée par la recherche.</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">
-            <span className="font-serif italic">NéoFiches</span> articule la physiopathologie néonatale,
-            la science de l'implémentation et la pédagogie réflexive en un seul corpus.
-            Conforme aux recommandations <abbr title="Organisation mondiale de la santé">OMS</abbr>,
-            <abbr title="Haute Autorité de Santé"> HAS</abbr>, <abbr title="Société française de néonatologie">SFN</abbr>
-            et <abbr title="American Academy of Pediatrics">AAP</abbr>.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              to="/modules"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-soft transition hover:scale-[1.02]"
-            >
-              <BookOpen className="h-4 w-4" /> Parcourir les modules
-            </Link>
-            <Link
-              to="/quiz"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
-            >
-              <Activity className="h-4 w-4" /> Démarrer un quiz
-            </Link>
-          </div>
-        </div>
-      </motion.div>
+    <div className="relative -mx-4 md:-mx-8">
+      <div className="noise-overlay" />
 
-      {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* HERO */}
+      <section className="relative overflow-hidden px-6 pb-20 pt-12 md:px-16 md:pt-20">
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-primary/30 blur-[120px] animate-orb" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-gold/25 blur-[100px] animate-orb" style={{ animationDelay: "3s" }} />
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
+          className="pointer-events-none absolute right-8 top-32 hidden rounded-full border border-primary/30 bg-background/70 px-3 py-1.5 font-mono text-[10px] tracking-widest text-primary backdrop-blur md:block">
+          SpO₂ 98% — STABLE
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1 }}
+          className="pointer-events-none absolute left-12 top-44 hidden rounded-full border border-gold/40 bg-background/70 px-3 py-1.5 font-mono text-[10px] tracking-widest text-gold backdrop-blur md:block">
+          FC 142 BPM — NORMO
+        </motion.div>
+
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            className="mono-label mx-auto inline-flex rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-primary">
+            Projet de Fin d'Études · Licence INP · 2024–2025
+          </motion.div>
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+            className="mt-6 font-mono text-[11px] uppercase tracking-[0.35em] text-gold">
+            ISPITS Béni Mellal — Filière Soins Infirmiers
+          </motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.9 }}
+            className="mt-6 font-display text-[clamp(2.4rem,6vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-foreground">
+            Élaboration d'un{" "}
+            <span className="italic text-primary">manuel de fiches techniques standardisées</span>
+            <span className="block">en néonatologie et en pédiatrie</span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
+            className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Un levier pour l'amélioration de la qualité et de la sécurité des soins infantiles.{" "}
+            <span className="text-foreground/80">20 fiches techniques · 5 pôles cliniques · Matrice de 14 rubriques.</span>
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <Meta label="Élaboré par" value={author.name} />
+            <Sep /><Meta label="Encadrants" value={author.encadrants} />
+            <Sep /><Meta label="Paradigme" value="Médecine Fondée sur les Preuves" />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95 }}
+            className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link to="/modules" className="group inline-flex items-center gap-2 bg-primary px-7 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground transition hover:-translate-y-0.5 hover:bg-gold hover:text-background hover:shadow-glow">
+              <BookOpen className="h-4 w-4" /> Explorer les Pôles
+            </Link>
+            <Link to="/protocoles" className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-7 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-primary transition hover:border-primary hover:bg-primary/10">
+              <FileSearch className="h-4 w-4" /> Lire les Fiches
+            </Link>
+          </motion.div>
+        </div>
+        <EcgBackground className="pointer-events-none absolute -bottom-2 left-0 right-0 h-32 w-full opacity-50" />
+      </section>
+
+      {/* TICKER */}
+      <div className="relative overflow-hidden border-y border-border bg-primary/[0.03] py-4">
+        <div className="animate-ticker flex w-max gap-12 whitespace-nowrap">
+          {[...tickerTerms, ...tickerTerms].map((t, i) => (
+            <span key={i} className="mono-label flex items-center gap-12 text-muted-foreground">
+              {t} <span className="text-gold">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* STATS */}
+      <div className="relative grid grid-cols-2 border-b border-border bg-primary/[0.02] md:grid-cols-4">
         {stats.map((s, i) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-          >
-            <Card className="overflow-hidden border-0 shadow-soft">
-              <CardContent className="flex items-center justify-between p-5">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{s.label}</p>
-                  <p className="mt-1 font-mono text-3xl font-bold tabular-nums">{s.value}</p>
-                </div>
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${s.color} text-white shadow-soft`}>
-                  <s.icon className="h-5 w-5" />
-                </div>
-              </CardContent>
-            </Card>
+          <motion.div key={s.l} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+            className="group relative overflow-hidden border-r border-border px-6 py-12 text-center last:border-r-0">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <span className="relative block font-display text-5xl font-bold leading-none text-primary md:text-6xl">
+              {s.v.replace("+", "")}<span className="text-gold">{s.v.includes("+") ? "+" : ""}</span>
+            </span>
+            <span className="mono-label relative mt-3 block text-muted-foreground">{s.l}</span>
           </motion.div>
         ))}
       </div>
 
-      {/* Author + live vitals */}
-      <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-        <AuthorCard />
-        <AnimatedVitals />
+      {/* POLES */}
+      <SectionHeader label="Architecture Clinique" title="Les Cinq Pôles du Référentiel"
+        body="Chaque pôle constitue une entité clinique autonome et interdépendante, conçue pour une prise en charge holistique et intégrée du nouveau-né." />
+      <div className="mx-6 grid grid-cols-1 gap-px border border-border bg-border md:mx-16 md:grid-cols-3">
+        {poles.map((p, i) => {
+          const hex = p.gradient.match(/#\w+/)?.[0] ?? "#00C6C6";
+          return (
+            <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+              className={`group relative overflow-hidden bg-card p-8 transition hover:bg-secondary ${i === 4 ? "md:col-span-2" : ""}`}>
+              <div className="absolute left-0 right-0 top-0 h-[3px] opacity-60 transition-opacity group-hover:opacity-100" style={{ background: p.gradient }} />
+              <span className="absolute right-6 top-4 font-display text-6xl font-bold leading-none opacity-10" style={{ color: hex }}>{p.number}</span>
+              <span className="block text-2xl">{p.icon}</span>
+              <span className={`mono-label mt-4 inline-block rounded-full px-3 py-1 ${p.accent}`} style={{ background: `${hex}15` }}>{p.tag}</span>
+              <h3 className="mt-4 font-display text-2xl font-semibold text-foreground">{p.name}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {p.procedures.map((proc) => (
+                  <span key={proc} className="font-mono text-[10px] tracking-wider rounded-full border border-border bg-background/40 px-2.5 py-1 text-foreground/70">{proc}</span>
+                ))}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Scholarly preface */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="grid gap-8 rounded-3xl border border-border bg-card p-8 md:grid-cols-[1fr_2fr] md:p-12"
-      >
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
-            Préface · Cadre conceptuel
-          </p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight">
-            Du geste à la <span className="italic">preuve</span>.
-          </h2>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Trois axes structurent chacune des fiches : <em>physiopathologie</em>, <em>geste
-            standardisé</em> et <em>indicateurs de qualité mesurables</em>.
-          </p>
-        </div>
-        <div className="space-y-4 font-serif text-[15px] leading-relaxed text-foreground/85">
-          <p>
-            La néonatologie contemporaine se situe à la frontière de la médecine de précision et de
-            la pédagogie incarnée. Chaque protocole présenté ici a été dérivé d'une revue
-            systématique selon la méthodologie <span className="font-mono not-italic text-xs">PRISMA-2020</span>,
-            puis traduit en algorithme décisionnel évalué par cinq cliniciens expérimentés
-            (<span className="font-mono not-italic text-xs">κ&nbsp;=&nbsp;0.86</span>, accord inter-juges
-            substantiel selon Landis &amp; Koch).
-          </p>
-          <p>
-            Loin du <em>checklist learning</em>, la plateforme privilégie une approche
-            constructiviste : l'étudiant·e confronte ses représentations à la donnée probante,
-            puis ré-élabore son schème d'action — un modèle inspiré des travaux de Schön sur le
-            praticien réflexif et étayé par les méta-analyses de Cook (2013) sur l'apprentissage
-            par simulation à haute fidélité.
-          </p>
-        </div>
-      </motion.section>
+      {/* MATRICE 14 */}
+      <SectionHeader label="Architecture Documentaire" title="La Matrice de 14 Rubriques"
+        body="Chaque fiche technique constitue une unité d'analyse complète structurée autour de cette matrice rigoureuse." />
+      <div className="mx-6 grid grid-cols-2 gap-px border border-border bg-border md:mx-16 md:grid-cols-4 lg:grid-cols-7">
+        {matriceRubriques.map((r, i) => (
+          <motion.div key={r.num} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }}
+            className="group relative bg-card p-5 transition hover:bg-primary/5">
+            <span className="absolute right-3 top-3 font-mono text-[10px] tracking-wider text-primary/60">{r.num}</span>
+            <span className="block text-xl">{r.icon}</span>
+            <div className="mt-3 font-display text-sm font-semibold leading-tight text-foreground">{r.title}</div>
+            <div className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{r.sub}</div>
+          </motion.div>
+        ))}
+      </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Progress */}
-        <Card className="border-0 shadow-soft lg:col-span-2">
-          <CardContent className="p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold">Ma progression</h2>
-            </div>
-            <div className="space-y-5">
-              {progress.map((p, i) => {
-                const pct = Math.round((p.done / p.total) * 100);
-                return (
-                  <div key={p.module}>
-                    <div className="mb-1.5 flex justify-between text-sm">
-                      <span className="font-medium">{p.module}</span>
-                      <span className="font-mono text-muted-foreground tabular-nums">{p.done}/{p.total} — {pct}%</span>
-                    </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-muted">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${pct}%` }}
-                        transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: "easeOut" }}
-                        className="h-full rounded-full bg-gradient-primary"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-          <div className="hidden"><Progress value={0} /></div>
-        </Card>
+      <div className="mx-6 my-12 md:mx-auto md:max-w-3xl">
+        <blockquote className="relative border-l-[3px] border-primary bg-primary/[0.03] px-8 py-6">
+          <Quote className="absolute -left-3 -top-3 h-6 w-6 rounded-full bg-primary p-1 text-primary-foreground" />
+          <p className="font-display text-lg italic leading-relaxed text-foreground/90 md:text-xl">
+            « Cette architecture matricielle impose une exhaustivité qui garantit que tous les aspects cliniques, techniques, humains et légaux d'une procédure sont considérés — transformant l'information brute en un outil utilisable au quotidien. »
+          </p>
+        </blockquote>
+      </div>
 
-        {/* Recommandés */}
-        <Card className="border-0 shadow-soft">
-          <CardContent className="p-6">
-            <h2 className="mb-4 text-lg font-semibold">À réviser</h2>
-            <div className="space-y-3">
-              {protocols.slice(0, 4).map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0, x: 8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  <Link
-                    to="/protocoles/$id"
-                    params={{ id: p.id }}
-                    className="group flex items-center gap-3 rounded-xl border border-border p-3 transition hover:border-primary/40 hover:bg-accent/30"
-                  >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-primary text-primary-foreground">
-                      <FileSearch className="h-4 w-4" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium">{p.title}</p>
-                      <p className="text-xs text-muted-foreground">{p.category} · {p.duration}</p>
-                    </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
-                  </Link>
-                </motion.div>
-              ))}
+      {/* METHODOLOGIE */}
+      <SectionHeader label="Rigueur Scientifique" title="Processus Méthodologique"
+        body="Une revue systématique et critique de la littérature scientifique internationale, croisant les données probantes avec les recommandations des instances de régulation sanitaire de référence." />
+      <div className="mx-6 max-w-3xl space-y-px md:mx-auto">
+        {methodologie.map((m, i) => (
+          <motion.div key={m.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            className="relative grid grid-cols-[auto_1fr] gap-6 border-l border-border py-6 pl-6">
+            <div className="absolute -left-5 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-background text-lg shadow-glow">{m.icon}</div>
+            <div className="col-start-2">
+              <div className="mono-label text-primary">{m.num}</div>
+              <h3 className="mt-1 font-display text-xl font-semibold">{m.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.body}</p>
             </div>
-          </CardContent>
-        </Card>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* ORGANISMES */}
+      <SectionHeader label="Références de Référence" title="Instances Scientifiques Consultées"
+        body="Le référentiel croise les données probantes avec les recommandations des plus hautes autorités sanitaires mondiales." />
+      <div className="mx-6 mb-20 flex flex-wrap justify-center gap-2 md:mx-16">
+        {organismes.map((o, i) => (
+          <motion.span key={o} initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }}
+            className="font-mono text-[11px] tracking-wider rounded-full border border-border bg-card px-4 py-2 text-foreground/80 transition hover:border-primary hover:text-primary">
+            {o}
+          </motion.span>
+        ))}
+      </div>
+
+      {/* RÉSUMÉ MULTILINGUE */}
+      <SectionHeader label="Synthèse Scientifique" title="Résumé du Projet" />
+      <div className="mx-6 mb-16 max-w-4xl space-y-6 md:mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-2 border-b border-border pb-3">
+          <Languages className="h-4 w-4 text-primary" />
+          {(Object.keys(resumes) as Lang[]).map((k) => (
+            <button key={k} onClick={() => setLang(k)}
+              className={`mono-label rounded-full px-4 py-1.5 transition ${lang === k ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-primary"}`}>
+              {resumes[k].label}
+            </button>
+          ))}
+        </div>
+        <motion.div key={lang} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} dir={resume.dir}
+          className="space-y-4 font-serif text-[15px] leading-[1.9] text-foreground/85">
+          {resume.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          <div className={`mt-6 flex flex-wrap gap-2 ${resume.dir === "rtl" ? "justify-end" : ""}`}>
+            {resume.keywords.map((k) => (
+              <span key={k} className="font-mono text-[10px] tracking-wider rounded-full border border-primary/40 px-3 py-1 text-primary">{k}</span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* AUTEUR */}
+      <div className="mx-6 mb-20 max-w-4xl md:mx-auto">
+        <div className="grid items-center gap-8 border border-border bg-card p-8 md:grid-cols-[auto_1fr] md:p-12">
+          <div className="relative mx-auto h-32 w-32">
+            <div className="absolute inset-0 animate-pulse-ring rounded-full border-2 border-primary" />
+            <div className="flex h-32 w-32 items-center justify-center rounded-full border-2 border-primary bg-secondary text-5xl shadow-glow">👨‍⚕️</div>
+          </div>
+          <div>
+            <h3 className="font-display text-3xl font-semibold">{author.name}</h3>
+            <p className="mono-label mt-1 text-primary">{author.role}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{author.bio}</p>
+            <p className="mt-3 font-display text-base italic text-foreground/80">{author.citation}</p>
+            <div className="mt-5 flex flex-wrap gap-6">
+              <MiniMeta label="Institution" value={author.institution} />
+              <MiniMeta label="Encadrants" value={author.encadrants} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* QUICK LINKS */}
+      <div className="mx-6 mb-16 grid gap-4 md:mx-auto md:max-w-4xl md:grid-cols-3">
+        <QuickLink to="/quiz" icon={Sparkles} title={`${quizzes.length} quiz`} sub="Auto-évaluation immédiate" />
+        <QuickLink to="/protocoles" icon={FileSearch} title={`${protocols.length} protocoles`} sub="Fiches détaillées + PDF" />
+        <QuickLink to="/modules" icon={BookOpen} title={`${modules.length} modules`} sub="Parcours pédagogique" />
       </div>
     </div>
+  );
+}
+
+function SectionHeader({ label, title, body }: { label: string; title: string; body?: string }) {
+  return (
+    <div className="px-6 pb-12 pt-24 text-center md:px-16">
+      <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mono-label text-primary">{label}</motion.span>
+      <motion.h2 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+        className="mx-auto mt-4 max-w-2xl font-display text-4xl font-bold leading-[1.1] text-foreground md:text-5xl">{title}</motion.h2>
+      {body && (
+        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+          className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{body}</motion.p>
+      )}
+    </div>
+  );
+}
+
+function Meta({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <span className="mono-label text-primary/70">{label}</span>
+      <span className="font-display text-base font-semibold text-foreground">{value}</span>
+    </div>
+  );
+}
+function MiniMeta({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="mono-label text-primary/70">{label}</div>
+      <div className="mt-1 text-sm text-foreground">{value}</div>
+    </div>
+  );
+}
+function Sep() { return <span className="hidden h-10 w-px bg-border md:block" />; }
+
+function QuickLink({ to, icon: Icon, title, sub }: { to: string; icon: typeof Sparkles; title: string; sub: string }) {
+  return (
+    <Link to={to} className="group flex items-center gap-4 border border-border bg-card p-5 transition hover:border-primary hover:bg-primary/5">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
+      </div>
+      <div className="flex-1">
+        <div className="font-display text-lg font-semibold">{title}</div>
+        <div className="mono-label text-muted-foreground">{sub}</div>
+      </div>
+      <ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+    </Link>
   );
 }
