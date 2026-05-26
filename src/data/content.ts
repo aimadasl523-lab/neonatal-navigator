@@ -506,3 +506,231 @@ export const algorithms = [
     ],
   },
 ];
+
+/* ════════════════════════════════════════════════════════════
+ * GOD-TIER ARCHITECTURE — Manuel ISPITS Béni Mellal 2024-2025
+ * ════════════════════════════════════════════════════════════ */
+
+export type Pole = {
+  id: string; number: string; icon: string; tag: string;
+  name: string; description: string; procedures: string[];
+  accent: string; gradient: string;
+};
+
+export const poles: Pole[] = [
+  {
+    id: "accueil-homeostasie", number: "01", icon: "🫀", tag: "6 Fiches · Fondationnel",
+    name: "Accueil & Homéostasie",
+    description: "Le pôle fondateur sur lequel repose l'intégralité du parcours de soins. L'instabilité physiologique initiale compromet l'efficacité de toute intervention ultérieure — thermorégulation, hémodynamique, oxygénothérapie titrée.",
+    procedures: ["Stabilisation initiale", "Thermorégulation active", "Monitorage hémodynamique", "Oxygénothérapie FiO₂", "Soins du cordon", "Prophylaxie ophtalmique"],
+    accent: "text-primary", gradient: "linear-gradient(90deg, #00C6C6, #007C7C)",
+  },
+  {
+    id: "nutrition-metabolisme", number: "02", icon: "🧪", tag: "5 Fiches · Métabolique",
+    name: "Nutrition & Métabolisme",
+    description: "Fondamental pour la croissance somatique et le développement neurologique. La gestion minutieuse — entérale et parentérale — prévient la surcharge hydrique et la déshydratation, respectant l'immaturité enzymatique du nouveau-né.",
+    procedures: ["Abord nasogastrique", "Nutrition entérale progressive", "Nutriments parentéraux", "Hyperglycémie néonatale", "Bilan azoté"],
+    accent: "text-gold", gradient: "linear-gradient(90deg, #C9A84C, #8B6914)",
+  },
+  {
+    id: "abord-vasculaire", number: "03", icon: "💉", tag: "3 Fiches · Vasculaire",
+    name: "Abord Vasculaire & Prélèvements",
+    description: "Sécurisation systématique des voies d'accès vasculaire. Minimisation de l'anémie iatrogène par optimisation des techniques de prélèvement capillaire. Maintien du cathéter veineux central avec surveillance des complications.",
+    procedures: ["Abord veineux périphérique", "Prélèvements capillaires", "Cathéter veineux central"],
+    accent: "text-pink-400", gradient: "linear-gradient(90deg, #E85D9A, #8B2355)",
+  },
+  {
+    id: "support-respiratoire", number: "04", icon: "🫁", tag: "4 Fiches · Respiratoire",
+    name: "Support Respiratoire & Élimination",
+    description: "Prise en charge du syndrome de détresse respiratoire néonatale. Le support ventilatoire non invasif (CPAP) et l'aspiration trachéale sont guidés par des algorithmes décisionnels rigoureux fondés sur les données probantes.",
+    procedures: ["CPAP non invasif", "Aspiration trachéale", "Photothérapie", "Sondage vésical"],
+    accent: "text-sky-400", gradient: "linear-gradient(90deg, #5D9AE8, #234F8B)",
+  },
+  {
+    id: "neurodeveloppement", number: "05", icon: "🧠", tag: "1 Fiche Transversale · Développemental",
+    name: "Neurodéveloppement & Confort",
+    description: "Pôle transversal qui irrigue l'ensemble du référentiel. L'évaluation systématique de la douleur et du stress néonatal via des échelles validées — PIPP-R, COMFORT, DAN — constitue un impératif éthique et clinique. La douleur non traitée engendre des séquelles neurodéveloppementales mesurables. Intègre les principes du NIDCAP, ancrant les soins dans le paradigme des Soins Centrés sur la Famille.",
+    procedures: ["Évaluation douleur (PIPP-R, DAN, COMFORT)", "Gestion du stress néonatal", "Soutien neurodéveloppemental (NIDCAP)", "Analgésie non pharmacologique", "Intégration parentale"],
+    accent: "text-emerald-400", gradient: "linear-gradient(90deg, #7AE85D, #2B8B23)",
+  },
+];
+
+export type Rubrique = { num: string; icon: string; title: string; sub: string };
+export const matriceRubriques: Rubrique[] = [
+  { num: "01", icon: "📋", title: "Titre de la Procédure", sub: "Intitulé normalisé selon nomenclature internationale" },
+  { num: "02", icon: "🏥", title: "Domaine Clinique", sub: "Classification par pôle et spécialité" },
+  { num: "03", icon: "🎯", title: "Objectif", sub: "Finalité clinique et attendu de résultats" },
+  { num: "04", icon: "🔬", title: "Physiopathologie", sub: "Ancrage mécanistique — le « pourquoi » de chaque geste" },
+  { num: "05", icon: "✅", title: "Indications", sub: "Critères décisionnels d'initiation de la procédure" },
+  { num: "06", icon: "⛔", title: "Contre-indications", sub: "Situations cliniques interdisant la procédure" },
+  { num: "07", icon: "🛠️", title: "Pré-requis", sub: "Matériel, personnel qualifié, environnement sécurisé" },
+  { num: "08", icon: "📐", title: "Procédure Pas à Pas", sub: "Algorithme séquentiel standardisé et reproductible" },
+  { num: "09", icon: "👁️", title: "Surveillance Post-Procédure", sub: "Paramètres de monitoring et seuils d'alerte" },
+  { num: "10", icon: "⚠️", title: "Complications & Gestion", sub: "Conduite à tenir en cas d'événement indésirable" },
+  { num: "11", icon: "🗓️", title: "Planification des Soins", sub: "Continuité du parcours de soins post-procédure" },
+  { num: "12", icon: "⚖️", title: "Traçabilité Médico-légale", sub: "Chaîne de responsabilités vérifiable et documentée" },
+  { num: "13", icon: "👨‍👩‍👧", title: "Intégration des Parents", sub: "Modèle des Soins Centrés sur la Famille (SCF · NIDCAP)" },
+  { num: "14", icon: "📚", title: "Références & Lignes Directrices", sub: "SFN · AAP · OMS · HAS · Evidence-Based Medicine" },
+];
+
+export const methodologie = [
+  { icon: "🔍", num: "Étape 01", title: "Identification des Domaines Critiques", body: "Sur la base des indicateurs de qualité et de sécurité en néonatologie, les cinq pôles cliniques ont été définis. Le choix des 20 procédures fut guidé par leur fréquence d'application, leur potentiel d'impact sur les résultats du patient et leur variabilité de pratique rapportée dans la littérature (SFN, 2022 ; AAP, 2018)." },
+  { icon: "📖", num: "Étape 02", title: "Revue Systématique de la Littérature", body: "Identification de tous les documents pertinents : essais cliniques randomisés, méta-analyses, revues systématiques (notamment Cochrane Neonatal), études observationnelles et rapports de sociétés savantes internationales. PubMed · Cochrane · Embase." },
+  { icon: "⚖️", num: "Étape 03", title: "Confrontation aux Recommandations", body: "Les données probantes recueillies ont été confrontées aux recommandations de la SFN, de l'AAP, de l'OMS et de la HAS, permettant de classer les recommandations selon un niveau de preuve et une force d'avis reconnus internationalement." },
+  { icon: "🤝", num: "Étape 04", title: "Consensus Expert", body: "Lorsque l'évidence était insuffisante ou contradictoire, un consensus expert fut mobilisé pour formuler des recommandations basées sur l'expérience collective et la meilleure compréhension physiopathologique disponible." },
+  { icon: "🏗️", num: "Étape 05", title: "Structuration en Matrice 14 Rubriques", body: "Conception de l'architecture documentaire garantissant l'exhaustivité méthodique : dimensions scientifiques, techniques, cliniques et relationnelles. Le résultat transcende le simple mode opératoire pour constituer un véritable outil de décision clinique." },
+];
+
+export const organismes = [
+  "SFN · Société Française de Néonatologie",
+  "AAP · American Academy of Pediatrics",
+  "OMS · Organisation Mondiale de la Santé",
+  "HAS · Haute Autorité de Santé",
+  "Cochrane Neonatal Group",
+  "ILCOR · Neonatal Life Support",
+  "EFCNI · European Foundation for Newborns",
+  "SFAR · Société Française d'Anesthésie",
+  "NICE · UK Clinical Excellence",
+  "JCI · Joint Commission International",
+  "Ministère de la Santé du Maroc",
+  "ANSM · Agence du Médicament",
+  "CNRHP · Hémobiologie Périnatale",
+  "Réseau Périnatal Méditerranée",
+  "AP-HP · Necker-Enfants Malades",
+  "HUG · Hôpitaux Universitaires Genève",
+];
+
+export const tickerTerms = [
+  "Stabilisation néonatale", "Thermorégulation active", "Nutrition entérale progressive",
+  "Support ventilatoire CPAP", "Soins centrés sur la famille", "Traçabilité médico-légale",
+  "Photothérapie néonatale", "Médecine fondée sur les preuves", "Homéostasie du nouveau-né",
+  "NIDCAP · Soins développementaux", "Échelles PIPP-R · DAN · COMFORT", "Cathéter veineux central",
+];
+
+export const author = {
+  name: "Aimad Aslaoui",
+  role: "Étudiant-chercheur · Licence INP · Soins Infirmiers",
+  institution: "ISPITS Béni Mellal · 2024–2025",
+  encadrants: "Pr. Ouakhir Hassan · Dr. Kannane Soukaina",
+  bio: "Auteur du Manuel de Fiches Techniques Standardisées en Néonatologie et Pédiatrie — un référentiel élaboré selon le paradigme de la médecine fondée sur les preuves. Travail centré sur l'harmonisation des pratiques infantiles et la sécurisation du parcours de soins néonatal.",
+  citation: "« Le soin néonatal n'est pas la simple exécution d'un geste : c'est l'orchestration d'une physiologie immature, d'une famille bouleversée et d'une éthique de la vulnérabilité. »",
+};
+
+export const resumes = {
+  fr: {
+    label: "Français", dir: "ltr" as const,
+    paragraphs: [
+      "La néonatologie se positionne comme une discipline médicale de haute complexité, où la prise en charge de patients dont les systèmes physiologiques sont intrinsèquement immatures exige un niveau d'expertise et de vigilance exceptionnel. La vulnérabilité fondamentale du nouveau-né, particulièrement celui qui est prématuré ou souffre de comorbidités sévères, implique une dépendance absolue vis-à-vis de l'environnement de soins pour assurer son adaptation extra-utérine.",
+      "Ce travail de recherche s'inscrit directement dans le paradigme de la médecine fondée sur les preuves, avec pour objectif premier de concevoir un manuel normatif conçu pour agir comme un levier efficace d'harmonisation des pratiques et de sécurisation du parcours de soins pour les nouveau-nés. Le référentiel de 20 fiches techniques a été mené selon une approche méthodologique rigoureuse, structurée autour d'une revue systématique et critique de la littérature scientifique internationale.",
+      "Ce référentiel ne se contente pas de fournir des instructions techniques ; il offre un cadre complet qui prend en compte l'ensemble de l'écosystème de soins — reconnaissant que la famille est un facteur protecteur essentiel, et que la sécurité et la responsabilité sont primordiales dans la pratique clinique contemporaine.",
+    ],
+    keywords: ["Néonatologie", "Pédiatrie", "Fiches Techniques", "Standardisation", "Qualité", "Sécurité des Soins", "Evidence-Based Medicine"],
+  },
+  en: {
+    label: "English", dir: "ltr" as const,
+    paragraphs: [
+      "Neonatology constitutes a highly complex medical discipline wherein the management of patients with intrinsically immature physiological systems demands exceptional expertise and clinical vigilance. The fundamental vulnerability of the newborn, particularly those born preterm or presenting with severe comorbidities, entails an absolute dependence on the care environment to ensure successful extrauterine adaptation.",
+      "This research is anchored in the evidence-based medicine paradigm, aiming to design a normative manual conceived as an effective lever for harmonising practice and securing the care pathway of newborns. The reference corpus of 20 standardised technical sheets was developed through a rigorous methodology — a systematic and critical review of the international scientific literature.",
+      "Beyond technical instructions, the referential offers a comprehensive framework accounting for the entire care ecosystem — recognising that the family is an essential protective factor, and that safety and accountability are paramount in contemporary clinical practice.",
+    ],
+    keywords: ["Neonatology", "Pediatrics", "Technical Sheets", "Standardisation", "Quality", "Patient Safety", "Evidence-Based Medicine"],
+  },
+  ar: {
+    label: "العربية", dir: "rtl" as const,
+    paragraphs: [
+      "يُعدُّ طبُّ حديثي الولادة تخصصاً طبياً بالغ التعقيد، حيث تقتضي رعايةُ مرضى ذوي أجهزة فسيولوجية غير مكتملة النضج مستوى استثنائياً من الخبرة العلمية واليقظة السريرية. إنَّ الضعفَ الجوهريَ لدى المولود الجديد، لا سيما الخدج أو أولئك المصابين باعتلالات مشتركة وخيمة، يستلزم اعتماداً كلياً على بيئة الرعاية لضمان التكيُّف الفسيولوجي الناجح بعد الخروج من الرحم.",
+      "يتمحور التحدّي المركزي لهذا المشروع حول تعزيز حالة الاستتباب الداخلي (Homeostasis) لدى المولود الجديد — الحالة الفسيولوجية المستقرة للكائن الحي والعمليات الديناميكية التي يحافظ من خلالها على هذا التوازن في مواجهة الضغوط البيئية.",
+      "يقدِّم هذا المرجع إطاراً شاملاً يأخذ بعين الاعتبار منظومة الرعاية بأكملها — مع الاعتراف بأن الأسرة عامل وقائي جوهري، وأن السلامة والمساءلة من الأولويات القصوى في الممارسة السريرية المعاصرة.",
+    ],
+    keywords: ["طب حديثي الولادة", "التوحيد المعياري", "الجودة والسلامة", "الاستتباب الداخلي", "الطب القائم على الأدلة"],
+  },
+};
+
+export type Flashcard = { id: string; front: string; back: string; category: string };
+export const flashcards: Flashcard[] = [
+  { id: "fc1", category: "Néonatologie", front: "Score d'Apgar — moments d'évaluation ?", back: "1 min, 5 min, 10 min de vie. Cinq items : FC, respiration, tonus, réactivité, coloration (0-2 chacun)." },
+  { id: "fc2", category: "Thermorégulation", front: "Cible thermique axillaire du nouveau-né ?", back: "36,5 – 37,5 °C. En-dessous : hypothermie → risque d'acidose, hypoglycémie, troubles de coagulation." },
+  { id: "fc3", category: "Respiratoire", front: "Cible SpO₂ chez le prématuré sous O₂ ?", back: "90 – 95 % (éviter l'hyperoxie → rétinopathie du prématuré, dysplasie broncho-pulmonaire)." },
+  { id: "fc4", category: "Réanimation", front: "Délai maximal avant ventilation positive (VPP) ?", back: "60 secondes — règle d'or NRP 8e édition. VPP au masque 40-60/min, FiO₂ 21 % (terme) ou 30 % (prématuré)." },
+  { id: "fc5", category: "Douleur", front: "Échelle de douleur validée pour le prématuré ?", back: "PIPP-R (Premature Infant Pain Profile - Revised). Items : âge gestationnel, état d'éveil, FC, SpO₂, expressions faciales." },
+  { id: "fc6", category: "Hygiène", front: "Les 5 indications OMS du lavage des mains ?", back: "1) Avant contact patient · 2) Avant geste aseptique · 3) Après risque d'exposition liquide biologique · 4) Après contact patient · 5) Après contact environnement." },
+  { id: "fc7", category: "Nutrition", front: "Volume initial d'alimentation entérale du prématuré ?", back: "10-20 mL/kg/j, augmentation progressive de 15-20 mL/kg/j selon tolérance. Lait maternel à privilégier (réduit l'ECUN)." },
+  { id: "fc8", category: "Médicaments", front: "Règle des 7 B en administration médicamenteuse ?", back: "Bon patient · Bon médicament · Bonne dose · Bonne voie · Bon moment · Bonne documentation · Bonne réponse." },
+  { id: "fc9", category: "Cardio", front: "Calibre cathéter veineux périphérique du nouveau-né ?", back: "24G ou 26G. Sites privilégiés : dos de la main, avant-bras, pied, cuir chevelu (< 6 mois)." },
+  { id: "fc10", category: "Examen clinique", front: "FC normale du nourrisson de 6 mois au repos ?", back: "100 – 160 bpm. À mesurer sur 1 minute pleine (auscultation ou palpation), pas d'extrapolation." },
+];
+
+export type Scenario = {
+  id: string; title: string; pole: string;
+  level: "Débutant" | "Intermédiaire" | "Expert";
+  duration: string; vitals: { fc: number; spo2: number; fr: number; temp: number };
+  briefing: string; objectives: string[]; triggers: string[];
+};
+
+export const scenarios: Scenario[] = [
+  {
+    id: "sim-detresse-resp",
+    title: "Détresse respiratoire d'un prématuré 32 SA",
+    pole: "Support Respiratoire",
+    level: "Intermédiaire", duration: "25 min",
+    vitals: { fc: 178, spo2: 84, fr: 72, temp: 36.1 },
+    briefing: "Vous prenez en charge un nouveau-né de 32 SA, poids 1 650 g, à H+2 de vie. Geignement expiratoire, tirage intercostal, battement des ailes du nez. Le score de Silverman est à 6/10.",
+    objectives: [
+      "Reconnaître les signes cliniques d'un SDRA néonatal",
+      "Initier un support ventilatoire CPAP avec PEEP adaptée",
+      "Titrer la FiO₂ pour cible SpO₂ 90-95%",
+      "Documenter l'évolution et alerter le pédiatre selon protocole",
+    ],
+    triggers: [
+      "T0 : SpO₂ chute à 78 % malgré O₂ aux lunettes 2 L/min",
+      "T+5 : Apnée > 20 sec avec bradycardie à 88 bpm",
+      "T+15 : Si CPAP non instauré, désaturation persistante < 80 %",
+    ],
+  },
+  {
+    id: "sim-hypothermie",
+    title: "Hypothermie sévère post-naissance",
+    pole: "Accueil & Homéostasie",
+    level: "Débutant", duration: "15 min",
+    vitals: { fc: 110, spo2: 94, fr: 48, temp: 34.8 },
+    briefing: "Nouveau-né à terme, accouchement à domicile, transport SAMU. T° axillaire d'admission 34,8 °C. Cyanose des extrémités, marbrures, pleurs faibles.",
+    objectives: [
+      "Identifier l'hypothermie comme urgence vitale",
+      "Mettre en œuvre un réchauffement progressif (max 0,5 °C/h)",
+      "Prévenir les complications : hypoglycémie, acidose",
+      "Tracer chaque mesure thermique et hémodynamique",
+    ],
+    triggers: [
+      "T+10 : Glycémie capillaire à 1,8 mmol/L",
+      "T+20 : Si pas de réchauffement actif → bradycardie 90 bpm",
+    ],
+  },
+  {
+    id: "sim-ecun",
+    title: "Suspicion d'entérocolite ulcéro-nécrosante",
+    pole: "Nutrition & Métabolisme",
+    level: "Expert", duration: "30 min",
+    vitals: { fc: 165, spo2: 92, fr: 58, temp: 37.9 },
+    briefing: "Prématuré 28 SA, J10 de vie. Ballonnement abdominal majeur, résidus gastriques bilieux 8 mL, sang dans les selles, instabilité hémodynamique.",
+    objectives: [
+      "Stopper immédiatement l'alimentation entérale",
+      "Mettre en place une sonde gastrique de décharge",
+      "Préparer l'imagerie abdominale et le bilan biologique",
+      "Anticiper la prise en charge chirurgicale potentielle",
+    ],
+    triggers: [
+      "T+5 : Apparition de pneumatose intestinale à l'ASP",
+      "T+15 : Aggravation hémodynamique → remplissage NaCl 10 mL/kg",
+    ],
+  },
+];
+
+export const faqItems = [
+  { q: "À qui s'adresse cette plateforme ?", a: "Aux étudiant·e·s en sciences infirmières (Licence INP, IFSI, ISPITS), aux jeunes infirmier·ère·s en poste en néonatologie/pédiatrie, ainsi qu'aux formateur·trice·s cliniques cherchant un référentiel normalisé pour leurs séances d'enseignement et simulations." },
+  { q: "Quelle est la source scientifique des fiches techniques ?", a: "Chaque fiche est issue d'une revue systématique de la littérature internationale (PubMed, Cochrane Neonatal, Embase), confrontée aux recommandations SFN, AAP, OMS, HAS et NICE. Le niveau de preuve est explicitement déclaré pour chaque recommandation." },
+  { q: "Les protocoles sont-ils utilisables au lit du patient ?", a: "Oui, mais en complément d'une formation pratique encadrée. Les fiches constituent un référentiel pédagogique normatif — l'expertise clinique de proximité et les protocoles locaux du service restent prioritaires en situation réelle." },
+  { q: "Puis-je exporter les fiches en PDF ?", a: "Oui. Chaque page de protocole comporte un bouton « Exporter en PDF » qui génère une fiche imprimable conforme à la matrice des 14 rubriques." },
+  { q: "La plateforme est-elle disponible en plusieurs langues ?", a: "Le corpus complet est rédigé en français médical normalisé. Les résumés scientifiques sont également disponibles en anglais et en arabe (avec support RTL natif)." },
+  { q: "Comment la confidentialité et l'éthique sont-elles garanties ?", a: "Aucune donnée patient n'est manipulée. Les scénarios de simulation utilisent des cas pédagogiques fictifs. La plateforme respecte les principes du RGPD et de la CNDP marocaine pour les usages éducatifs." },
+  { q: "Comment progresser efficacement ?", a: "Une boucle pédagogique : (1) lire la fiche du pôle, (2) tester via flashcards, (3) confronter la décision en simulation, (4) auto-évaluer via la grille de compétences, (5) répéter à 24h puis 7j (espaced repetition)." },
+];
