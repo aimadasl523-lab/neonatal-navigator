@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
-// ... other imports
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 
 export default defineConfig({
-  // ADD THIS LINE:
-  base: '/neonatal-navigator/', 
-  
-  // ... rest of your config (plugins, etc)
+  base: '/neonatal-navigator/',
+  plugins: [
+    tanstackStart(),
+  ],
 })
