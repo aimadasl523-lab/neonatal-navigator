@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SimulationsIndexRouteImport } from './routes/simulations.index'
 import { Route as QuizIndexRouteImport } from './routes/quiz.index'
 import { Route as ProtocolesIndexRouteImport } from './routes/protocoles.index'
 import { Route as ModulesIndexRouteImport } from './routes/modules.index'
+import { Route as FlashcardsIndexRouteImport } from './routes/flashcards.index'
+import { Route as FaqIndexRouteImport } from './routes/faq.index'
 import { Route as CompetencesIndexRouteImport } from './routes/competences.index'
 import { Route as AlgorithmesIndexRouteImport } from './routes/algorithmes.index'
 import { Route as ProtocolesIdRouteImport } from './routes/protocoles.$id'
@@ -22,6 +25,11 @@ import { Route as CompetencesIdRouteImport } from './routes/competences.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationsIndexRoute = SimulationsIndexRouteImport.update({
+  id: '/simulations/',
+  path: '/simulations/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuizIndexRoute = QuizIndexRouteImport.update({
@@ -37,6 +45,16 @@ const ProtocolesIndexRoute = ProtocolesIndexRouteImport.update({
 const ModulesIndexRoute = ModulesIndexRouteImport.update({
   id: '/modules/',
   path: '/modules/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlashcardsIndexRoute = FlashcardsIndexRouteImport.update({
+  id: '/flashcards/',
+  path: '/flashcards/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqIndexRoute = FaqIndexRouteImport.update({
+  id: '/faq/',
+  path: '/faq/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompetencesIndexRoute = CompetencesIndexRouteImport.update({
@@ -72,9 +90,12 @@ export interface FileRoutesByFullPath {
   '/protocoles/$id': typeof ProtocolesIdRoute
   '/algorithmes/': typeof AlgorithmesIndexRoute
   '/competences/': typeof CompetencesIndexRoute
+  '/faq/': typeof FaqIndexRoute
+  '/flashcards/': typeof FlashcardsIndexRoute
   '/modules/': typeof ModulesIndexRoute
   '/protocoles/': typeof ProtocolesIndexRoute
   '/quiz/': typeof QuizIndexRoute
+  '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,9 +104,12 @@ export interface FileRoutesByTo {
   '/protocoles/$id': typeof ProtocolesIdRoute
   '/algorithmes': typeof AlgorithmesIndexRoute
   '/competences': typeof CompetencesIndexRoute
+  '/faq': typeof FaqIndexRoute
+  '/flashcards': typeof FlashcardsIndexRoute
   '/modules': typeof ModulesIndexRoute
   '/protocoles': typeof ProtocolesIndexRoute
   '/quiz': typeof QuizIndexRoute
+  '/simulations': typeof SimulationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +119,12 @@ export interface FileRoutesById {
   '/protocoles/$id': typeof ProtocolesIdRoute
   '/algorithmes/': typeof AlgorithmesIndexRoute
   '/competences/': typeof CompetencesIndexRoute
+  '/faq/': typeof FaqIndexRoute
+  '/flashcards/': typeof FlashcardsIndexRoute
   '/modules/': typeof ModulesIndexRoute
   '/protocoles/': typeof ProtocolesIndexRoute
   '/quiz/': typeof QuizIndexRoute
+  '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +135,12 @@ export interface FileRouteTypes {
     | '/protocoles/$id'
     | '/algorithmes/'
     | '/competences/'
+    | '/faq/'
+    | '/flashcards/'
     | '/modules/'
     | '/protocoles/'
     | '/quiz/'
+    | '/simulations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,9 +149,12 @@ export interface FileRouteTypes {
     | '/protocoles/$id'
     | '/algorithmes'
     | '/competences'
+    | '/faq'
+    | '/flashcards'
     | '/modules'
     | '/protocoles'
     | '/quiz'
+    | '/simulations'
   id:
     | '__root__'
     | '/'
@@ -130,9 +163,12 @@ export interface FileRouteTypes {
     | '/protocoles/$id'
     | '/algorithmes/'
     | '/competences/'
+    | '/faq/'
+    | '/flashcards/'
     | '/modules/'
     | '/protocoles/'
     | '/quiz/'
+    | '/simulations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,9 +178,12 @@ export interface RootRouteChildren {
   ProtocolesIdRoute: typeof ProtocolesIdRoute
   AlgorithmesIndexRoute: typeof AlgorithmesIndexRoute
   CompetencesIndexRoute: typeof CompetencesIndexRoute
+  FaqIndexRoute: typeof FaqIndexRoute
+  FlashcardsIndexRoute: typeof FlashcardsIndexRoute
   ModulesIndexRoute: typeof ModulesIndexRoute
   ProtocolesIndexRoute: typeof ProtocolesIndexRoute
   QuizIndexRoute: typeof QuizIndexRoute
+  SimulationsIndexRoute: typeof SimulationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -154,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulations/': {
+      id: '/simulations/'
+      path: '/simulations'
+      fullPath: '/simulations/'
+      preLoaderRoute: typeof SimulationsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz/': {
@@ -175,6 +221,20 @@ declare module '@tanstack/react-router' {
       path: '/modules'
       fullPath: '/modules/'
       preLoaderRoute: typeof ModulesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flashcards/': {
+      id: '/flashcards/'
+      path: '/flashcards'
+      fullPath: '/flashcards/'
+      preLoaderRoute: typeof FlashcardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq/': {
+      id: '/faq/'
+      path: '/faq'
+      fullPath: '/faq/'
+      preLoaderRoute: typeof FaqIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/competences/': {
@@ -222,9 +282,12 @@ const rootRouteChildren: RootRouteChildren = {
   ProtocolesIdRoute: ProtocolesIdRoute,
   AlgorithmesIndexRoute: AlgorithmesIndexRoute,
   CompetencesIndexRoute: CompetencesIndexRoute,
+  FaqIndexRoute: FaqIndexRoute,
+  FlashcardsIndexRoute: FlashcardsIndexRoute,
   ModulesIndexRoute: ModulesIndexRoute,
   ProtocolesIndexRoute: ProtocolesIndexRoute,
   QuizIndexRoute: QuizIndexRoute,
+  SimulationsIndexRoute: SimulationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
