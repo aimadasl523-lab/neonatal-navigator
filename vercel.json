@@ -1,9 +1,0 @@
-{
-  "framework": null,
-  "buildCommand": "bun run build",
-  "outputDirectory": ".output",
-  "bunVersion": "1.x",
-  "functions": {
-    "runtime": "bun1.x"
-  }
-}
